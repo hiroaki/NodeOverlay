@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html><head><title>NodeOverlay</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+html, body, #map_canvas { height: 100%; margin: 0px; padding: 0px; }
+img.info-window { max-width: 200px; max-height: 200px; }
+</style>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="extlib/ExtDraggableObject.js"></script>
+<script type="text/javascript" src="NodeOverlay.js"></script>
+<script type="text/javascript">
+google.maps.event.addDomListener(window, 'load', function() {
+
+  var map = new google.maps.Map(document.getElementById("map_canvas"), {
+    zoom: 5,
+    center: new google.maps.LatLng(35.6841306, 139.774103),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+  var overlay = new NodeOverlay(document.getElementById("draggableElement"), {
+    position: new google.maps.LatLng(35.6841306, 139.774103),
+    draggable: true,
+    marker: new google.maps.Marker()
+  });
+  overlay.setMap(map);
+
+  google.maps.event.addListener(overlay, 'dragstart', function (mouse_event){
+    console.log('dragstart');
+    console.log(mouse_event);
+  });
+  google.maps.event.addListener(overlay, 'drag', function (mouse_event){
+    console.log('drag');
+    console.log(mouse_event);
+  });
+  google.maps.event.addListener(overlay, 'dragend', function (mouse_event){
+    console.log('dragend');
+    console.log(mouse_event);
+  });
+
+  google.maps.event.addListener(overlay, 'click', function (mouse_event){
+    console.log('click');
+    console.log(mouse_event);
+  });
+  google.maps.event.addListener(overlay, 'mouseup', function (mouse_event){
+    console.log('mouseup');
+    console.log(mouse_event);
+  });
+  google.maps.event.addListener(overlay, 'mousedown', function (mouse_event){
+    console.log('mousedown');
+    console.log(mouse_event);
+  });
+});
+</script>
+</head><body>
+<div id="map_canvas"></div>
+<div id="draggableElement" style="position:absolute;width:100px;top:0px;left:0px;visibility:visible;background:white;text-align:center">draggable</div>
+</body></html>
