@@ -30,7 +30,7 @@ NodeOverlay.prototype = Object.create(google.maps.OverlayView.prototype, {
 });
 
 NodeOverlay.NAME = 'NodeOverlay';
-NodeOverlay.VERSION = '3.0.0';
+NodeOverlay.VERSION = '3.0.1';
 NodeOverlay.AnchorPosition = {
   TOP_LEFT: 'topLeft',
   TOP_RIGHT: 'topRight',
@@ -187,9 +187,11 @@ NodeOverlay.prototype.onRemove = function() {
   if ( this.settings.marker ) {
     this.settings.marker.setMap(null);
   }
-  google.maps.event.clearInstanceListeners(this.draggable);
+  if ( this.draggable ) {
+    google.maps.event.clearInstanceListeners(this.draggable);
+  }
   google.maps.event.clearInstanceListeners(this.element);
-  this.getPane().removeChild(this.element);
+  this.element.parentNode.removeChild(this.element);
   this.element = null;
   this.position = null;
   this.draggable = null;
